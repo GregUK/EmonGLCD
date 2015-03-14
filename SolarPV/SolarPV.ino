@@ -59,7 +59,7 @@ RTC_Millis RTC;
 // RFM12B Settings
 //--------------------------------------------------------------------------------------------
 #define MYNODE 20            // Should be unique on network, node ID 30 reserved for base station
-#define RF_freq RF12_433MHZ     // frequency - match to same frequency as RFM12B module (change to 868Mhz or 915Mhz if appropriate)
+#define RF_freq RF12_868MHZ     // frequency - match to same frequency as RFM12B module (change to 868Mhz or 915Mhz if appropriate)
 #define group 210            // network group, must be same as emonTx and emonBase
 
 //---------------------------------------------------
@@ -70,6 +70,11 @@ PayloadTX emontx;
 
 typedef struct { int temperature; } PayloadGLCD;
 PayloadGLCD emonglcd;
+
+//---------------------------------------------------
+// Define temperature offset for onboard temp senso
+//---------------------------------------------------
+#define TEMP_OFFSET -1.5
 
 //---------------------------------------------------
 // emonGLCD SETUP
@@ -260,7 +265,7 @@ void loop()
     slow_update = millis();
 
     sensors.requestTemperatures();
-    double rawtemp = (sensors.getTempCByIndex(0));
+    double rawtemp = TEMP_OFFSET + (sensors.getTempCByIndex(0));
     if ((rawtemp>-20) && (rawtemp<50)) temp=rawtemp;                  //is temperature withing reasonable limits?
     if (temp > maxtemp) maxtemp = temp;
     if (temp < mintemp) mintemp = temp;
