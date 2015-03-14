@@ -219,7 +219,7 @@ void loop()
       draw_solar_page(cval_use, usekwh, cval_gen, maxgen, genkwh, temp, mintemp, maxtemp, hour,minute, last_emontx, last_emonbase);
       glcd.refresh();
     }
-    /*else if (page==2)
+    else if (page==2)
     {
       draw_power_page( "POWER" ,cval_use, "USE", usekwh);
       draw_temperature_time_footer(temp, mintemp, maxtemp, hour,minute);
@@ -230,7 +230,7 @@ void loop()
       draw_power_page( "SOLAR" ,cval_gen, "GEN", genkwh);
       draw_temperature_time_footer(temp, mintemp, maxtemp, hour,minute);
       glcd.refresh();
-    }*/
+    }
     else if (page==2)
     {
       draw_history_page(gen_history, use_history);
